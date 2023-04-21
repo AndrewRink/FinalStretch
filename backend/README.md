@@ -1,6 +1,3 @@
-
-
-db:migrate
 # FinalStretch 
 
 ## Backend Setup
