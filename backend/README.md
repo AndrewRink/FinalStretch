@@ -33,6 +33,10 @@ sequelize model:generate --name "name" --attributes "id:integer, name:string" ec
 
 ### Running migration (adding to database)
 In the terminal run: 
-db:migrate
-"Check database to make sure models and migrations performed properly." 
+sequelize db:migrate
+"Refresh the database to make sure models and migrations performed properly." 
+
+### Adding Migration to a existing table
+In the terminal: 
+sequelize migrations:generate --name 
 
