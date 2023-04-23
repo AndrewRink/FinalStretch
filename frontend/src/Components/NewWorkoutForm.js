@@ -18,12 +18,13 @@ function NewWorkoutForm() {
       <Table>
         <thead>
           <tr>
-            <th>Author ID</th>
+            <th>Client</th>
             <th>Workout Name</th>
             <th>Equipment needed</th>
             <th>Description</th>
             <th>Duration</th>
             <th>Edit</th>
+            <th>Image</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -68,6 +69,11 @@ function NewWorkoutForm() {
 <Form.Group controlId="formWorkoutDescription">
   <Form.Label>Description</Form.Label>
   <Form.Control as="textarea" rows={3} placeholder="Enter workout description" style={{height: "100px", width: "100%"}} />
+</Form.Group>
+
+<Form.Group controlId="formWorkoutImage">
+  <Form.Label>Image</Form.Label>
+  <Form.Control type="file" placeholder="Enter Image URL" style={{ height: "50px", width: "100%" }} />
 </Form.Group>
 
 <Form.Group controlId="formWorkoutDuration">

@@ -3,6 +3,7 @@ const db = require('../models')
 const { Workouts } = db
 const { Op } = require('sequelize')
 
+
 //workout
 workout.get('/', async (req,res) => {
     try {
@@ -41,6 +42,7 @@ workout.post('/', async (req,res) => {
         res.status(500).json(err)
     }
 })
+
 
 //update workout
 workout.put('/:id', async (req,res) => {

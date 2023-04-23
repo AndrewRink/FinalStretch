@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     author_id: DataTypes.STRING,
     workout_name: DataTypes.STRING,
+    equipment: DataTypes.STRING,
     image: DataTypes.STRING,
     description: DataTypes.STRING,
     duration: DataTypes.SMALLINT,
