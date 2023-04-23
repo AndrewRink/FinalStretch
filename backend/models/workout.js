@@ -15,18 +15,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   workout.init({
     workout_id: {
-      type: DataTypes.SMALLINT,
-      primaryKey: true,
-      autoIncrement: true,
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
     },
     author_id: DataTypes.STRING,
     workout_name: DataTypes.STRING,
-    equipment_needed: DataTypes.STRING,
     image: DataTypes.STRING,
     description: DataTypes.STRING,
     duration: DataTypes.SMALLINT,
-    calories_burned: DataTypes.SMALLINT,
-    
+    calories_burned: DataTypes.SMALLINT
+  }, {
+    sequelize,
+    modelName: 'workout',
   });
   return workout;
 };
