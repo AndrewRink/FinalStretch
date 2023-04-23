@@ -6,10 +6,10 @@ import Container from 'react-bootstrap/Container'
 //Components
 import Home from './Components/Home';
 import LoginPage from './Components/LoginPage'
-import NewWorkoutForm from './Components/NewWorkoutForm'
 import WorkoutList from './Components/WorkoutList'
 import MyAccount from './Components/MyAccount';
 import './App.css';
+
 
 
 
@@ -38,6 +38,8 @@ function App() {
           </div>
         </Router>
     </div>
+
+    
   );
 }
 
