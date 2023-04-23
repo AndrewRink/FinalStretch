@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   workout.init({
     workout_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement:true 
     },
     author_id: DataTypes.STRING,
     workout_name: DataTypes.STRING,
