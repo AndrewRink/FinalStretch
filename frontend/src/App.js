@@ -20,7 +20,7 @@ function App() {
             <Nav className='Nav' defaultActiveKey='/'>
                 <Link to='/'>Home</Link>
                 <Link to='/workoutlist'>List of Workouts</Link>
-                <Link to='/newworkoutform'>Add a New WorkoutList</Link>
+                <Link to='/newworkoutform'>Add a New Workout</Link>
                 <Link to='/myaccount'>My Account</Link>
                 <Link to='/login'>Login</Link>
             </Nav>
