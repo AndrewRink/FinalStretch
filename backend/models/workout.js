@@ -19,10 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    author_id: DataTypes.STRING,
     workout_name: DataTypes.STRING,
+    equipment_needed: DataTypes.STRING,
     image: DataTypes.STRING,
-    area_of_focus: DataTypes.STRING,
-    length_of_workout: DataTypes.SMALLINT,
+    description: DataTypes.STRING,
+    duration: DataTypes.SMALLINT,
     calories_burned: DataTypes.SMALLINT,
     
   });
