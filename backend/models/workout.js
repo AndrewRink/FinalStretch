@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     workout_name: DataTypes.STRING,
+    image: DataTypes.STRING,
     area_of_focus: DataTypes.STRING,
     length_of_workout: DataTypes.SMALLINT,
     calories_burned: DataTypes.SMALLINT,
