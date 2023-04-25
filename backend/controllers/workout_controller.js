@@ -4,20 +4,21 @@ const { Workouts } = db
 const { Op } = require('sequelize')
 
 
-//workout
-workout.get('/', async (req,res) => {
+// GET all workouts
+workout.get('/', async (req, res) => {
     try {
-        const foundItem = await Workouts.findAll({
-            author: [ [ id, ASC ] ],
-            where: {
-                workout_name: { [Op.like]: `%${req.query.name ? req.query.name: ''}` }
-            }
-        })
-        res.status(200).json(fountItem)
-    }catch(err){
-        res.status(500).json(err)
+      const foundItems = await db.workout.findAll({
+        where: {
+          workout_name: { [Op.like]: `%${req.query.name ? req.query.name : ''}%` }
+        },
+        order: [ ['author_id', 'ASC'] ]
+      })
+      res.status(200).json(foundItems)
+    } catch (err) {
+      res.status(500).json(err)
     }
 })
+  
 
 //find workout by id
 workout.get('/:id', async (req,res) => {
@@ -32,24 +33,28 @@ workout.get('/:id', async (req,res) => {
 })
 
 //create new workout
-workout.post('/', async (req,res) => {
+workout.post('/', async (req, res) => {
     try {
-        const { id, ...workoutItemData } = req.body; 
-        const workoutItem = await Workouts.create(workoutItemData);
-        res.status(201).json(workoutItem);
-    }catch(err){
-        console.error(err);
-        res.status(500).json(err)
+      const { workout_name, description, equipment, image, duration } = req.body;
+      const newWorkoutItem = await db.workout.create({
+        workout_name,
+        description,
+        equipment,
+        image,
+        duration
+      });
+      res.status(201).json(newWorkoutItem);
+    } catch (err) {
+      res.status(500).json(err);
     }
-})
-
+  });
 
 //update workout
 workout.put('/:id', async (req,res) => {
     try{
-        const { workout_name, description, image, duration } = req.body; 
+        const { workout_name, description, equipment, image, duration } = req.body; 
         const workoutItem = await Workouts.update(
-            { workout_name, description, image, duration },
+            { workout_name, description, equipment, image, duration },
             {
                 where: { id: req.params.id },
                 returning: true,
@@ -66,21 +71,21 @@ workout.put('/:id', async (req,res) => {
     }
 })
 
-//delete workout
 workout.delete('/:id', async (req,res) => {
     try{
         console.log(req.params.id)
-        const deletedWorkout = await Workouts.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
-        res.status(200).json({
-            message: `Deleted ${deletedWorkout} from workout list`
-        })
+      const deletedWorkout = await db.workout.destroy({
+          where: {
+              workout_id: req.params.id
+          }
+      });
+      res.status(200).json({
+      });
+      
     }catch(err){
-        res.status(500).json(err)
+      console.error(err);
+      res.status(500).json(err);
     }
-})
+  });
 
 module.exports = workout
