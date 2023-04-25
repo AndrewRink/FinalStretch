@@ -15,9 +15,6 @@ module.exports = {
       workout_name: {
         type: Sequelize.STRING
       },
-      equipment: {
-        type: Sequelize.STRING
-      },
       image: {
         type: Sequelize.STRING
       },
