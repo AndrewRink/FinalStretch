@@ -1,13 +1,12 @@
 import { Table, Button, Modal, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import handleAddWorkout from "./handleAddWorkout";
-import handleDelete from "./handleDelete"
 import "../App.css";
 
 function NewWorkoutForm() {
   const [workoutItem, setWorkoutItem] = useState([]);
   const [selectedWorkoutItem, setSelectedWorkoutItem] = useState(null);
-  const  [showEditModal, setShowEditModal ] = useState([]);
+  const [showEditModal, setShowEditModal] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newWorkoutItem, setNewWorkoutItem] = useState({
     workout_name: "",
@@ -15,12 +14,12 @@ function NewWorkoutForm() {
     equipment: "",
     duration: "",
     image: "",
-    
+
   });
 
   //fetches data from localhost. Once the data is recieved it is converted to JSON and stored in the data variable using setWorkoutItem.
   useEffect(() => {
-    fetch("http://localhost:5000/workout")
+    fetch("http://localhost:5000/workoutlist")
       .then((response) => response.json())
       .then((data) => {
         setWorkoutItem(data);
@@ -34,9 +33,24 @@ function NewWorkoutForm() {
     event.preventDefault();
     handleAddWorkout(newWorkoutItem);
     setShowAddModal(false);
-    window.location.reload();
+    window.location.reload();//reloads window after adding newWorkout
   };
-  
+
+  async function handleDelete(id, setWorkoutItem) {
+    try {
+      await fetch(`http://localhost:5000/workoutlist/${id}`, {
+        method: "DELETE",
+      });
+      // Update the workoutItem state with the updated list of workouts
+      const updatedWorkoutList = workoutItem.filter( //filter creates new array except the given id before updating the workoutItem state w/ SetworkoutItem
+        (workout) => workout.workout_id !== id
+      );
+      setWorkoutItem(updatedWorkoutList);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <>
       <div className="new-workout-btn-container">
@@ -66,8 +80,8 @@ function NewWorkoutForm() {
                 <td>{workoutItem.description}</td>
                 <td>{workoutItem.equipment}</td>
                 <td>{workoutItem.duration}</td>
-                <td>{workoutItem.image}</td>
-                
+                <td><img src={workoutItem.image} alt="Workout" style={{ maxWidth: "200px" }} /></td>
+
                 <td>
                   <Button
                     variant="primary"
@@ -80,7 +94,7 @@ function NewWorkoutForm() {
                   </Button>
                 </td>
                 <td>
-                <Button variant="danger" onClick={() => handleDelete(workoutItem.workout_id)}>Delete</Button>
+                  <Button variant="danger" onClick={() => handleDelete(workoutItem.workout_id, setWorkoutItem)}>Delete</Button>
                 </td>
               </tr>
             ))}
@@ -148,6 +162,7 @@ function NewWorkoutForm() {
                   })
                 }
               />
+              {newWorkoutItem.image && <img src={newWorkoutItem.image} alt="Workout" />}
             </Form.Group>
             <Form.Group>
               <Form.Label>Duration (in minutes)</Form.Label>
