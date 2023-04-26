@@ -56,7 +56,7 @@ workout.put('/:id', async (req,res) => {
         const workoutItem = await Workouts.update(
             { workout_name, description, equipment, image, duration },
             {
-                where: { id: req.params.id },
+                where: { workout_id: req.params.id },
                 returning: true,
                 plain: true,
             }
@@ -71,21 +71,18 @@ workout.put('/:id', async (req,res) => {
     }
 })
 
-workout.delete('/:id', async (req,res) => {
-    try{
-        console.log(req.params.id)
-      const deletedWorkout = await db.workout.destroy({
-          where: {
-              workout_id: req.params.id
-          }
-      });
-      res.status(200).json({
-      });
-      
-    }catch(err){
-      console.error(err);
-      res.status(500).json(err);
-    }
-  });
-
+workout.delete('/:id', async (req, res) => {
+  try {
+    const deletedWorkout = await db.workout.destroy({
+      where: {
+        workout_id: req.params.id
+      }
+    });
+    const updatedWorkoutList = await db.workout.findAll();
+    res.status(200).json(updatedWorkoutList);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
 module.exports = workout

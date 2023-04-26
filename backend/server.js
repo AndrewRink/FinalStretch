@@ -24,7 +24,7 @@ app.get('/', (req,res) => {
 
 //controllers
 const workoutController = require('./controllers/workout_controller')
-app.use('/workout', workoutController)
+app.use('/workoutlist', workoutController)
 
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port: ${process.env.PORT}`)

@@ -2,7 +2,7 @@
 
 function handleAddWorkout(newWorkoutItem) {
     const { workout_name, description, equipment, image, duration } = newWorkoutItem;
-    fetch("http://localhost:5000/workout", {
+    fetch("http://localhost:5000/workoutlist", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
