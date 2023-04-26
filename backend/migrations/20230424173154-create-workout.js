@@ -3,14 +3,17 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('workouts', {
-      workout_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      author_id: {
-        type: Sequelize.STRING
+      workout_id: {
+        type: Sequelize.INTEGER
+      },
+      user_id: {
+        type: Sequelize.INTEGER
       },
       workout_name: {
         type: Sequelize.STRING
@@ -22,10 +25,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       duration: {
-        type: Sequelize.SMALLINT
+        type: Sequelize.INTEGER
       },
       calories_burned: {
-        type: Sequelize.SMALLINT
+        type: Sequelize.INTEGER
       }
     });
   },
