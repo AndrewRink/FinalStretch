@@ -4,7 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('workouts', [{
-      user_id: 1,
+      author_id: 1,
       workout_name: "Downward Facing Dog",
       equipment: "yoga mat",
       image: "https://images.pexels.com/photos/4534689/pexels-photo-4534689.jpeg",
@@ -12,7 +12,7 @@ module.exports = {
       duration: 5,
       calories_burned: 50},
       {
-      user_id: 1,
+      author_id: 1,
       workout_name: "Seated Dumbbell Butterfly Lifts",
       equipment: "yoga mat, assorted weight dumbbells",
       image: "https://thumbs.dreamstime.com/b/elderly-man-lifting-dumbbells-sitting-exercise-mat-isolated-white-background-96806335.jpg",
@@ -20,7 +20,7 @@ module.exports = {
       duration: 10,
       calories_burned: 75},
       {
-      user_id: 1,
+      author_id: 1,
       workout_name: "Bicep Curls",
       equipment: "assorted weight dumbbells",
       image: "https://thumbs.dreamstime.com/b/elderly-man-playing-sports-light-background-37110685.jpg",
@@ -28,7 +28,7 @@ module.exports = {
       duration: 10,
       calories_burned: 60},
       {
-      user_id: 1,
+      author_id: 1,
       workout_name: "Exercise Bike",
       equipment: "exercise bike",
       image: "https://thumbs.dreamstime.com/b/active-senior-using-exercise-bike-21772095.jpg",
@@ -36,7 +36,7 @@ module.exports = {
       duration: 30,
       calories_burned: 350},
       {
-      user_id: 1,
+      author_id: 1,
       workout_name: "Tree Pose",
       equipment: "yoga mat",
       image: "https://media.gettyimages.com/id/200515789-001/photo/man-doing-yoga-tree-pose.jpg?s=1024x1024&w=gi&k=20&c=0J9RFqD9EujowXvidQokFenPQHkDnjbCTk5ye1vIn-I=",
@@ -44,7 +44,7 @@ module.exports = {
       duration: 5,
       calories_burned: 50},
       {
-      user_id: 1,
+      author_id: 1,
       workout_name: "Cobra Pose",
       equipment: "yoga mat",
       image: "https://media.istockphoto.com/id/1282295809/photo/do-it-for-a-healthier-mind-and-body.jpg?s=1024x1024&w=is&k=20&c=O3v0x7yTP8IKUnjFsI-nnAPgZaO3FIlEQmbRL_hyVsA=",

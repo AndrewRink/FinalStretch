@@ -1,12 +1,14 @@
 import { Table, Button, Modal, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import handleAddWorkout from "./handleAddWorkout";
+import EditForm from "./EditForm"
 import "../App.css";
 
+
 function NewWorkoutForm() {
+  const [showEditModal, setShowEditModal] = useState(false);
   const [workoutItem, setWorkoutItem] = useState([]);
   const [selectedWorkoutItem, setSelectedWorkoutItem] = useState(null);
-  const [showEditModal, setShowEditModal] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newWorkoutItem, setNewWorkoutItem] = useState({
     workout_name: "",
@@ -29,6 +31,7 @@ function NewWorkoutForm() {
       });
   }, []);
 
+  //add button functionality 
   const handleAdd = (event) => {
     event.preventDefault();
     handleAddWorkout(newWorkoutItem);
@@ -36,6 +39,40 @@ function NewWorkoutForm() {
     window.location.reload();//reloads window after adding newWorkout
   };
 
+  const handleEdit = async (updatedWorkoutItem) => {
+    try {
+      await fetch(`http://localhost:5000/workoutlist/${updatedWorkoutItem.workout_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedWorkoutItem),
+      });
+
+      // Update the workoutItem state with the updated workout item
+      const updatedWorkoutItemList = workoutItem.map((workoutItem) => {
+        if (workoutItem.workout_id === updatedWorkoutItem.workout_id) {
+          return updatedWorkoutItem;
+        }
+        return workoutItem;
+      });
+
+      setWorkoutItem(updatedWorkoutItemList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEditModalClose = (event) => {
+    setSelectedWorkoutItem(null);
+    setShowEditModal(false);
+    
+  };
+
+ 
+
+
+  //delete button functionality 
   async function handleDelete(id, setWorkoutItem) {
     try {
       await fetch(`http://localhost:5000/workoutlist/${id}`, {
@@ -83,13 +120,10 @@ function NewWorkoutForm() {
                 <td><img src={workoutItem.image} alt="Workout" style={{ maxWidth: "200px" }} /></td>
 
                 <td>
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      setSelectedWorkoutItem(workoutItem);
-                      setShowEditModal(true);
-                    }}
-                  >
+                  <Button variant="primary" onClick={() => {
+                    setSelectedWorkoutItem(workoutItem);
+                    setShowEditModal(true);
+                  }}>
                     Edit
                   </Button>
                 </td>
@@ -100,6 +134,13 @@ function NewWorkoutForm() {
             ))}
         </tbody>
       </Table>
+
+      <Modal.Header closeButton onClick={handleEditModalClose}>          
+       <Modal show={showEditModal}>
+          <EditForm workoutItem={selectedWorkoutItem} onEdit={handleEdit} />
+      </Modal> 
+      </Modal.Header>
+
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>New Workout</Modal.Title>
@@ -185,6 +226,7 @@ function NewWorkoutForm() {
         </Modal.Body>
       </Modal>
     </>
-  );
+
+  )
 }
 export default NewWorkoutForm;
