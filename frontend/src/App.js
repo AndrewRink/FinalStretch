@@ -10,10 +10,8 @@ import WorkoutList from './Components/WorkoutList'
 import MyAccount from './Components/MyAccount';
 import './App.css';
 
-
-
-
 function App() {
+
   return (
     <div className="App">
       <Router>
