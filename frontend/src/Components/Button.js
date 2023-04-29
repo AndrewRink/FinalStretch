@@ -1,7 +1,21 @@
 import React from "react";
 
-const Button = (props) => {
-  return <button onClick={props.onClick}>{props.label}</button>;
-};
+function RedirectButton() {
+  const handleButtonClick = () => {
+    window.location.href = "http://localhost:5000/auth/google";
+  };
 
-export default Button;
+  return (
+    <button onClick={handleButtonClick}>
+     Log in with Google
+    </button>
+  );
+}
+
+export default RedirectButton;
+
+
+
+
+
+
