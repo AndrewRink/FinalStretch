@@ -56,7 +56,9 @@ app.get('/logout', (req, res) => {
 });
 //controllers
 const workoutController = require('./controllers/workout_controller');
+const userInfoController = require('./controllers/userinfo_controller');
 app.use('/workoutlist', workoutController);
+app.use('/userlist', userInfoController);
 
 //PORT
 app.listen(process.env.PORT, () => {
