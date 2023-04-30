@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import timeOfDay from './timeofday'
 import Form from './Form'
+import Meal from './Meal'
 
 function MyAccount () {
     //setting state for BMI Calculator
@@ -21,11 +22,15 @@ function MyAccount () {
                 <div>
                     <h2>Tools</h2>
                 </div>
-                <Form />
+                <div>
+                    <Form />
+                </div>
+                <div>
+                    <h2>Recipe Look-Up</h2>
+                    <Meal />
+                </div>
             </div>
         </body>
-
-
     )
 }
 
