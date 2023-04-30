@@ -4,7 +4,6 @@ import handleAddWorkout from "./handleAddWorkout";
 import EditForm from "./EditForm"
 import "../App.css";
 
-
 function NewWorkoutForm() {
 
   const [showEditModal, setShowEditModal] = useState(false);
@@ -20,7 +19,6 @@ function NewWorkoutForm() {
     workout_id: null
 
   });
-
 
   //fetches data from localhost. Once the data is recieved it is converted to JSON and stored in the data variable using setWorkoutItem.
   useEffect(() => {
@@ -47,7 +45,7 @@ function NewWorkoutForm() {
     const { workout_name, description, equipment, image, duration } = updatedWorkoutItem;
 
     try {
-        const response = await fetch(`http://localhost:5000/workoutlist/${workout_id}`, {
+      const response = await fetch(`http://localhost:5000/workoutlist/${workout_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +75,6 @@ function NewWorkoutForm() {
       console.error(error);
     }
   }
-
 
   //delete button functionality 
   async function handleDelete(id, setWorkoutItem) {
@@ -141,19 +138,13 @@ function NewWorkoutForm() {
             ))}
         </tbody>
       </Table>
-      <Modal show={showEditModal} onHide={() => {
-          if (!selectedWorkoutItem) {
-            setShowEditModal(false)
-          }
-        }}>
+      <Modal show={showEditModal} onHide={() => { setShowEditModal(false) }}>
         <Modal.Header closeButton onClick={handleSaveChanges}>
           <Modal.Title>Edit Workout</Modal.Title>
         </Modal.Header>
-    
-       
-          <EditForm handleEdit={handleEdit} selectedWorkoutItem={selectedWorkoutItem} handleSaveChanges={handleSaveChanges} />
-        </Modal>
-     
+
+        <EditForm handleEdit={handleEdit} selectedWorkoutItem={selectedWorkoutItem} handleSaveChanges={handleSaveChanges} />
+      </Modal>
 
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <Modal.Header closeButton>
@@ -239,7 +230,6 @@ function NewWorkoutForm() {
         </Modal.Body>
       </Modal>
     </>
-
   )
 }
 export default NewWorkoutForm;

@@ -63,14 +63,18 @@
   vertical-align: bottom;
   border-bottom: 2px solid #ddd;
 }
+
+.modal-backdrop {
+  opacity: 0 !important;
+}
+
 .modal {
-  
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
-  
+  z-index: 9999;
 }
 
 .modal-dialog {
