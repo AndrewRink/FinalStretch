@@ -15,6 +15,9 @@ module.exports = {
       last_name: {
         type: Sequelize.STRING
       },
+      email_address: {
+        type: Sequelize.STRING
+      },
       height: {
         type: Sequelize.INTEGER
       },
@@ -23,7 +26,7 @@ module.exports = {
       },
       goal_weight: {
         type: Sequelize.INTEGER
-      },
+      }
     });
   },
   async down(queryInterface, Sequelize) {
