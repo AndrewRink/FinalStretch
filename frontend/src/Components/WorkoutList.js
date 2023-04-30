@@ -1,10 +1,11 @@
+import { Container } from 'react-bootstrap'
 import NewWorkoutForm from "./NewWorkoutForm"
 function WorkoutList () {
     return (
-        <div>
+        <Container>
             <h1>Workout List</h1>
             < NewWorkoutForm />
-       </div>
+       </Container>
     )
 }
 
