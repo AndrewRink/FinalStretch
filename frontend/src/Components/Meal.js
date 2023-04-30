@@ -22,13 +22,11 @@ const Meal = () => {
                 <div className="container">
                    {   
                   
-                    (Mymeal==null)? <p className="notSearch">Not found</p> : 
-                         Mymeal.map((res)=>{
+                    (Mymeal==null)? <p className="notSearch">Recipes will be found below!</p> : 
+                         Mymeal.slice(0,6).map((res)=>{
                              return(
                             <Mealitem data={res}/>)} 
-                     
                     ) 
-                   
                    }
                 </div>
             </div>
