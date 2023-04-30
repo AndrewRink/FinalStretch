@@ -1,5 +1,3 @@
-
-
 function handleAddWorkout(newWorkoutItem) {
     const { workout_name, description, equipment, image, duration } = newWorkoutItem;
     fetch("http://localhost:5000/workoutlist", {
@@ -23,5 +21,6 @@ function handleAddWorkout(newWorkoutItem) {
         console.error(error);
       });
   }
+  
   
   export default handleAddWorkout;

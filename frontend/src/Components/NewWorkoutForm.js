@@ -1,4 +1,4 @@
-import { Table, Button, Modal, Form } from "react-bootstrap";
+import { Table, Button, Modal, Form, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import handleAddWorkout from "./handleAddWorkout";
 import EditForm from "./EditForm"
@@ -6,6 +6,7 @@ import "../App.css";
 
 
 function NewWorkoutForm() {
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [workoutItem, setWorkoutItem] = useState([]);
   const [selectedWorkoutItem, setSelectedWorkoutItem] = useState(null);
@@ -16,8 +17,10 @@ function NewWorkoutForm() {
     equipment: "",
     duration: "",
     image: "",
+    workout_id: null
 
   });
+
 
   //fetches data from localhost. Once the data is recieved it is converted to JSON and stored in the data variable using setWorkoutItem.
   useEffect(() => {
@@ -39,43 +42,47 @@ function NewWorkoutForm() {
     window.location.reload();//reloads window after adding newWorkout
   };
 
-  const handleEdit = async (updatedWorkoutItem) => {
+  async function handleEdit(updatedWorkoutItem, workout_id) {
+    console.log("updating workout with ID:", workout_id);
+    const { workout_name, description, equipment, image, duration } = updatedWorkoutItem;
+
     try {
-      await fetch(`http://localhost:5000/workoutlist/${updatedWorkoutItem.workout_id}`, {
+        const response = await fetch(`http://localhost:5000/workoutlist/${workout_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedWorkoutItem),
+        body: JSON.stringify({
+          workout_id,
+          workout_name,
+          description,
+          equipment,
+          image,
+          duration
+        })
       });
 
-      // Update the workoutItem state with the updated workout item
-      const updatedWorkoutItemList = workoutItem.map((workoutItem) => {
-        if (workoutItem.workout_id === updatedWorkoutItem.workout_id) {
-          return updatedWorkoutItem;
-        }
-        return workoutItem;
-      });
-
-      setWorkoutItem(updatedWorkoutItemList);
+      const data = await response.json();
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
-  const handleEditModalClose = (event) => {
-    setSelectedWorkoutItem(null);
-    setShowEditModal(false);
-    
-  };
-
- 
+  async function handleSaveChanges(event) {
+    event.preventDefault();
+    try {
+      await handleEdit(newWorkoutItem, selectedWorkoutItem.workout_id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
   //delete button functionality 
   async function handleDelete(id, setWorkoutItem) {
     try {
-      await fetch(`http://localhost:5000/workoutlist/${id}`, {
+      await fetch(`http://localhost:5000/workoutlist/delete/${id}`, {
         method: "DELETE",
       });
       // Update the workoutItem state with the updated list of workouts
@@ -90,11 +97,11 @@ function NewWorkoutForm() {
 
   return (
     <>
-      <div className="new-workout-btn-container">
+      <Container className="new-workout-btn-container">
         <Button variant="success" onClick={() => setShowAddModal(true)}>
           New Workout
         </Button>
-      </div>
+      </Container>
       <Table>
         <thead>
           <tr>
@@ -134,12 +141,19 @@ function NewWorkoutForm() {
             ))}
         </tbody>
       </Table>
-
-      <Modal.Header closeButton onClick={handleEditModalClose}>          
-       <Modal show={showEditModal}>
-          <EditForm workoutItem={selectedWorkoutItem} onEdit={handleEdit} />
-      </Modal> 
-      </Modal.Header>
+      <Modal show={showEditModal} onHide={() => {
+          if (!selectedWorkoutItem) {
+            setShowEditModal(false)
+          }
+        }}>
+        <Modal.Header closeButton onClick={handleSaveChanges}>
+          <Modal.Title>Edit Workout</Modal.Title>
+        </Modal.Header>
+    
+       
+          <EditForm handleEdit={handleEdit} selectedWorkoutItem={selectedWorkoutItem} handleSaveChanges={handleSaveChanges} />
+        </Modal>
+     
 
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <Modal.Header closeButton>
@@ -166,7 +180,6 @@ function NewWorkoutForm() {
               <Form.Control
                 as="textarea"
                 rows={3}
-                placeholder="Enter description"
                 value={newWorkoutItem.description}
                 onChange={(event) =>
                   setNewWorkoutItem({

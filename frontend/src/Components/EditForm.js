@@ -2,35 +2,34 @@ import React, { useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 
 function EditForm({ handleEdit, selectedWorkoutItem }) {
-  const [workoutItem, setWorkoutItem] = useState([selectedWorkoutItem]);
-  const [ showEditModal, setShowEditModal] = useState([false])
+  const [workout_name, setWorkout_name] = useState(selectedWorkoutItem.workout_name);
+  const [description, setDescription] = useState(selectedWorkoutItem.description);
+  const [equipment, setEquipment] = useState(selectedWorkoutItem.equipment);
+  const [duration, setDuration] = useState(selectedWorkoutItem.duration);
+  const [image, setImage] = useState(selectedWorkoutItem.image);
+ 
+  
 
-  const handleSaveChanges = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    handleEdit(selectedWorkoutItem);
-    setShowEditModal(false);
-    window.location.reload(); //reloads window after editing selectedWorkoutItem
+    const updatedWorkoutItem = { workout_name, description, equipment, duration, image };
+    handleEdit(updatedWorkoutItem, selectedWorkoutItem.workout_id);
+    window.location.reload();
   };
 
+
+ 
   return (
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Workout</Modal.Title>
-        </Modal.Header>
-    
           <Modal.Body>
-            <Form onSubmit={handleSaveChanges}>
+            <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Workout Name</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter workout name"
-                  value={workoutItem.workout_name}
+                  value={workout_name}
                   onChange={(event) =>
-                    setWorkoutItem({
-                      ...workoutItem,
-                      workout_name: event.target.value,
-                    })
+                    setWorkout_name(event.target.value)
                   }
                 />
               </Form.Group>
@@ -40,12 +39,9 @@ function EditForm({ handleEdit, selectedWorkoutItem }) {
                   as="textarea"
                   rows={3}
                   placeholder="Enter description"
-                  value={workoutItem.description}
+                  value={description}
                   onChange={(event) =>
-                    setWorkoutItem({
-                      ...workoutItem,
-                      description: event.target.value,
-                    })
+                    setDescription(event.target.value)
                   }
                 />
               </Form.Group>
@@ -54,12 +50,9 @@ function EditForm({ handleEdit, selectedWorkoutItem }) {
                 <Form.Control
                   type="text"
                   placeholder="Enter equipment"
-                  value={workoutItem.equipment}
+                  value={equipment}
                   onChange={(event) =>
-                    setWorkoutItem({
-                      ...workoutItem,
-                      equipment: event.target.value,
-                    })
+                    setEquipment(event.target.value)
                   }
                 />
               </Form.Group>
@@ -68,28 +61,36 @@ function EditForm({ handleEdit, selectedWorkoutItem }) {
                 <Form.Control
                   type="text"
                   placeholder="Enter image URL"
-                  value={workoutItem.image}
+                  value={image}
                   onChange={(event) =>
-                    setWorkoutItem({
-                      ...workoutItem,
-                      image: event.target.value,
-                    })
+                    setImage(event.target.value)
                   }
                 />
-                {workoutItem.image && (
+                {image} && (
                   <img
-                    src={workoutItem.image}
+                    src={image}
                     alt="Workout Image Preview"
                     style={{ maxWidth: "200px" }}
                   />
-                )}
+                )
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Form.Group>
+                <Form.Label>Duration</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Duration"
+                  value={duration}
+                  onChange={(event) =>
+                    setDuration(event.target.value)
+                  }
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" >
                 Save Changes
               </Button>
             </Form>
           </Modal.Body>
-      </Modal>
+      
   );
 }
 
