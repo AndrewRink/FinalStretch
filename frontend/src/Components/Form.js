@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TextInput from "./TextInput";
-import Button from "./Button";
+import BmiButton from "./BmiButton";
 
 const App = () => {
   const [weight, setWeight] = useState();
@@ -57,13 +57,12 @@ const App = () => {
             
         </div>
         <div className="row">
-            <Button label="CALCULATE" onClick={computeBmi} />
+            <BmiButton label="CALCULATE" onClick={computeBmi} />
         </div>
         <div className="row">
             {
             isNaN(bmi)?null:<h3>Your BMI = {bmi}</h3> 
             }
-            
         </div>
         <div className="row">
             <h3>{bmiClass}</h3>
