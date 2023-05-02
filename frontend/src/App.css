@@ -1,7 +1,34 @@
 .App {
   text-align: center;
+  background-color: #CAD2C5;
+
+}
+html, body {
+  background-color: #CAD2C5;
+}
+.accountPage {
+  background-color: #CAD2C5;
+}
+.disclaimer {
+  font-size: 10px;
+  padding-left: 600px;
+  padding-right: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
+#homeLogo  {
+  width: 50%;
+  height: 30%;
+}
+
+#brand {
+  width: 12rem;
+  height: 4rem;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -46,7 +73,9 @@
   justify-content: space-around;
   
 }
-
+.bmiCalc {
+  background-color: #CAD2C5;
+}
 .food-image {
   max-width: 200px;
   max-height: 200px;
@@ -66,7 +95,7 @@
 
 .bmiContainer {
   display: flex;
-  background-color: #007bff;
+  background-color: #52796F;
   justify-content: center;
 }
 
@@ -75,7 +104,8 @@
   justify-content: center;
   position: relative;
   left: 43%;
-  width: 15%
+  width: 15%;
+  background-color: #52796F;
 }
 
 /* Styles for mobile view */

@@ -17,10 +17,10 @@ function MyAccount () {
                         <h2>Personal Details</h2>
                     </div>
                         <div className='aboutMe'>
-                            <p>Name: "code for name"</p>
-                            <p>Height: "code"</p>
-                            <p>Current Weight: "code"</p>
-                            <p>Goal Weight: "code"</p>
+                            <p>Name: ""</p>
+                            <p>Height: ""</p>
+                            <p>Current Weight: ""</p>
+                            <p>Goal Weight: ""</p>
                         </div>
                     <div className='preferredWorkouts'>
                         <div>
@@ -36,7 +36,7 @@ function MyAccount () {
                             <Form />
                         </div>
                         <div className='recipeSearch'>
-                            <h2>Recipe Look-Up</h2>
+                            <h2>"Stretch" those cooking muscles!</h2>
                             {/* Adds Recipe Search Function */}
                             <Meal />
                         </div>
