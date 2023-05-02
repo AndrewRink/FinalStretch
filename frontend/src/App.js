@@ -8,7 +8,7 @@ import Home from './Components/Home';
 import LoginPage from './Components/LoginPage'
 import WorkoutList from './Components/WorkoutList'
 import MyAccount from './Components/MyAccount';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -17,11 +17,11 @@ function App() {
       <Router>
         <Container>
           <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="/">Final Stretch</Navbar.Brand>
             <Nav className='Nav' defaultActiveKey='/'>
-                <Link to='/'>Home</Link>
-                <Link to='/workoutlist'>List of Workouts</Link>
-                <Link to='/myaccount'>My Account</Link>
-                <Link to='/login'>Login</Link>
+                <Nav.Link href='/workoutlist'>List of Workouts</Nav.Link>
+                <Nav.Link href='/myaccount'>My Account</Nav.Link>
+                <Nav.Link href='/login'>Login</Nav.Link>
             </Nav>
           </Navbar>
           </Container>
