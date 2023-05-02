@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Card } from 'react-bootstrap'
 import Mealitem from "./MealItem";
 
 const Meal = () => {
@@ -18,12 +17,13 @@ const Meal = () => {
                     <h3>Search by Meal Name</h3>
                 </div>
                 <div className="searchBox">
-                    <input type="search" className="search-bar" onChange={(e)=>setSearch(e.target.value)} value={search} onKeyPress={searchMeal}/>
+                    <input type="search" className="recipe-search-bar" placeholder="search for meal by name!" onChange={(e)=>setSearch(e.target.value)} value={search} onKeyPress={searchMeal}/>
                 </div>
+                <br/>
                 <div className="recipeContainer">
                    {   
                   
-                    (Mymeal==null)? <p className="notSearch">Not found</p> : 
+                    (Mymeal==null)? <p className="notSearch">Recipes will appear below!</p> : 
                          Mymeal.slice(0,6).map((res)=>{
                              return(
                             <Mealitem data={res}/>)} 
