@@ -1,8 +1,9 @@
 import { Table, Button, Modal, Form, Container, Alert } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import handleAddWorkout from "./handleAddWorkout";
 import EditForm from "./EditForm"
 import "../App";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NewWorkoutForm() {
   const [showBanner, setShowBanner] = useState(false);
@@ -54,10 +55,19 @@ function NewWorkoutForm() {
     });
   }
 
+  
 
   //add button functionality 
   const handleAdd = (event) => {
     event.preventDefault();
+    
+    //check if form is valid
+    if (!isFormValid()) {
+      // Form is not valid, do not submit
+      clearForm();
+      return;
+    }
+    //if form is valid, submit
     setShowBanner(true);
     setMessage("Exercise created successfully.")
     setTimeout(() => {
@@ -66,7 +76,33 @@ function NewWorkoutForm() {
     handleAddWorkout(newWorkoutItem);
     setShowAddModal(false);
     fetchWorkoutList();
-    clearForm();
+    
+
+  };
+
+  const isFormValid = () => {
+    // Check if all required fields have been filled in
+    if (!newWorkoutItem.workout_name) {
+      alert('Please enter a workout name');
+      return false;
+    }
+  
+    if (!newWorkoutItem.description) {
+      alert('Please enter a workout description');
+      return false;
+    }
+  
+    if (!newWorkoutItem.equipment) {
+      alert('Please enter the required equipment');
+      return false;
+    }
+  
+    if (!newWorkoutItem.duration) {
+      alert('Please enter the workout duration');
+      return false;
+    }
+  
+    return true;
   };
 
   const handleCloseAddModal = () => {
@@ -96,7 +132,7 @@ function NewWorkoutForm() {
       });
       if (response.ok) {
         const data = await response.json();
-      console.log(data);
+      //console.log(data);
       setShowBanner(true);
         setMessage("Exercise updated successfully.");
       setTimeout(() => {
@@ -145,6 +181,12 @@ function NewWorkoutForm() {
 
   return (
     <>
+    
+      <div>
+        <Alert className="alert-banner" show={showBanner} variant="success" onClose={() => setShowBanner(false)}>
+          {message}
+        </Alert>
+      </div>
       <Container className="new-workout-btn-container">
         <Button variant="success" onClick={() => setShowAddModal(true)}>
           New Workout
@@ -187,15 +229,12 @@ function NewWorkoutForm() {
                   <Button variant="danger" onClick={() => handleDelete(workoutItem.workout_id, setWorkoutItem, setShowBanner)}>
                     Delete
                   </Button>
-                  <div>
-                    <Alert className="alert-banner" show={showBanner} variant="success" onClose={() => setShowBanner(false)} dismissible>
-                      {message}
-                    </Alert>
-                  </div>
+                  
 
                 </td>
               </tr>
-            ))}
+            ))
+            }
         </tbody>
       </Table>
 
@@ -216,18 +255,21 @@ function NewWorkoutForm() {
               <Form.Label>Workout Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter workout name"
+                placeholder="Enter workout name: "
                 value={newWorkoutItem.workout_name}
-                onChange={(event) =>
+                onChange={(event) => {
                   setNewWorkoutItem({
                     ...newWorkoutItem,
                     workout_name: event.target.value,
                   })
                 }
+                  
+                }
+                
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Description: </Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
