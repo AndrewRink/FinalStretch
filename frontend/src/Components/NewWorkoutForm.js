@@ -189,14 +189,14 @@ function NewWorkoutForm() {
       </div>
       <Container className="new-workout-btn-container">
         <Button className="d-none d-md-table-cell" variant="success" onClick={() => setShowAddModal(true)}>
-          New Exercise
+          New Workout
         </Button>
       </Container>
       <Table responsive>
         <thead>
           <tr>
             <th className="d-none d-md-table-cell">Client</th>
-            <th>Exercise Name</th>
+            <th>Workout Name</th>
             <th>Description</th>
             <th className="d-none d-md-table-cell" >Equipment</th>
             <th>Duration</th>
