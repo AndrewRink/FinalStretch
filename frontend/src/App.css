@@ -153,6 +153,18 @@
   border: 2px solid black;
 }
 
-.recipe-seach-bar {
-  
+/* BMI Calculator */
+
+.bmiContainer {
+  display: flex;
+  background-color: #007bff;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  left: 43%;
+  width: 15%
 }

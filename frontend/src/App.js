@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Link, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
@@ -9,6 +9,7 @@ import LoginPage from './Components/LoginPage'
 import WorkoutList from './Components/WorkoutList'
 import MyAccount from './Components/MyAccount';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
 
 function App() {
 
