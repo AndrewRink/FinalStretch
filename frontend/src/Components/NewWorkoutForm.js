@@ -1,7 +1,6 @@
 import { Table, Button, Modal, Form, Container, Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import handleAddWorkout from "./handleAddWorkout";
-import Banner from "./Banner"
 import EditForm from "./EditForm"
 import "../App";
 
@@ -34,16 +33,48 @@ function NewWorkoutForm() {
       });
   }, []);
 
+  async function fetchWorkoutList() {
+    try {
+      const response = await fetch("http://localhost:5000/workoutlist");
+      const data = await response.json();
+      setWorkoutItem(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function clearForm() {
+    setNewWorkoutItem({
+      workout_name: "",
+      description: "",
+      equipment: "",
+      duration: "",
+      image: "",
+      workout_id: null
+    });
+  }
+
 
   //add button functionality 
   const handleAdd = (event) => {
     event.preventDefault();
     setShowBanner(true);
     setMessage("Exercise created successfully.")
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 2000)
     handleAddWorkout(newWorkoutItem);
     setShowAddModal(false);
-    window.location.reload();
+    fetchWorkoutList();
+    clearForm();
   };
+
+  const handleCloseAddModal = () => {
+    setShowBanner(false);
+    setShowAddModal(false)
+  };
+
+
 
   async function handleEdit(updatedWorkoutItem, workout_id) {
     const { workout_name, description, equipment, image, duration } = updatedWorkoutItem;
@@ -63,26 +94,33 @@ function NewWorkoutForm() {
           duration
         })
       });
-
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
       console.log(data);
       setShowBanner(true);
-      setMessage("Exercise updated successfully.");
+        setMessage("Exercise updated successfully.");
+      setTimeout(() => {
+        setShowBanner(false);
+      },2000)
+      setShowEditModal(false);
+      fetchWorkoutList();
+
+      }
+      
+
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  
+  const handleCloseEditModal = () => {
+    setShowBanner(false);
+    setShowEditModal(false);
+  };
 
-  async function handleSaveChanges(event) {
-    event.preventDefault();
-    try {
-      await handleEdit(newWorkoutItem, selectedWorkoutItem.workout_id);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
+
+
 
   //delete button functionality 
   async function handleDelete(id, setWorkoutItem, setShowBanner) {
@@ -96,8 +134,9 @@ function NewWorkoutForm() {
         (workout) => workout.workout_id !== id
       );
       setWorkoutItem(updatedWorkoutList);
-      setShowBanner(true);
       setMessage("Exercise deleted successfully.")
+      setShowBanner(true);
+      setTimeout(() => setShowBanner(false), 2000)
 
     } catch (error) {
       console.error(error);
@@ -142,9 +181,7 @@ function NewWorkoutForm() {
                   }}>
                     Edit
                   </Button>
-                  {showBanner && (
-                    <Banner message={message} showBanner={showBanner} setShowBanner={setShowBanner} />
-                  )}
+
                 </td>
                 <td>
                   <Button variant="danger" onClick={() => handleDelete(workoutItem.workout_id, setWorkoutItem, setShowBanner)}>
@@ -162,15 +199,14 @@ function NewWorkoutForm() {
         </tbody>
       </Table>
 
-      <Modal show={showEditModal} onHide={() => { setShowEditModal(false) }}>
-        <Modal.Header closeButton onClick={handleSaveChanges}>
+      <Modal show={showEditModal} onHide={handleCloseEditModal} >
+        <Modal.Header closeButton>
           <Modal.Title>Edit Workout</Modal.Title>
         </Modal.Header>
-
-        <EditForm handleEdit={handleEdit} selectedWorkoutItem={selectedWorkoutItem} handleSaveChanges={handleSaveChanges} showBanner={showBanner} setShowBanner={setShowBanner} />
+        <EditForm handleEdit={handleEdit} selectedWorkoutItem={selectedWorkoutItem} setShowBanner={setShowBanner} showBanner={showBanner} />
       </Modal>
 
-      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+      <Modal show={showAddModal} onHide={handleCloseAddModal}>
         <Modal.Header closeButton>
           <Modal.Title>New Workout</Modal.Title>
         </Modal.Header>
@@ -247,7 +283,7 @@ function NewWorkoutForm() {
                 }
               />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleAdd}>
+            <Button variant="primary" type="submit" onClick={handleCloseAddModal}>
               Add
             </Button>
             <div>

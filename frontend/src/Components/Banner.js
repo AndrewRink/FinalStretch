@@ -8,7 +8,7 @@ function Banner({ message, showBanner, setShowBanner }) {
     if (showBanner) {
       timeoutId = setTimeout(() => {
         setShowBanner(false);
-      }, 3000);
+      }, 2500);
     }
     return () => {
       clearTimeout(timeoutId);
