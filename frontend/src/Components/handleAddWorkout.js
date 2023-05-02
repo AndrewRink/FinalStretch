@@ -1,4 +1,4 @@
-function handleAddWorkout(newWorkoutItem) {
+function handleAddWorkout(newWorkoutItem,setShowBanner) {
     const { workout_name, description, equipment, image, duration } = newWorkoutItem;
     fetch("http://localhost:5000/workoutlist", {
       method: "POST",
@@ -16,6 +16,7 @@ function handleAddWorkout(newWorkoutItem) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setShowBanner(true)
       })
       .catch((error) => {
         console.error(error);

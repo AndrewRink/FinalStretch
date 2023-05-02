@@ -1,11 +1,12 @@
-import { Table, Button, Modal, Form, Container } from "react-bootstrap";
+import { Table, Button, Modal, Form, Container, Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import handleAddWorkout from "./handleAddWorkout";
 import EditForm from "./EditForm"
-import "../App.css";
+import "../App";
 
 function NewWorkoutForm() {
-
+  const [showBanner, setShowBanner] = useState(false);
+  const [message, setMessage] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [workoutItem, setWorkoutItem] = useState([]);
   const [selectedWorkoutItem, setSelectedWorkoutItem] = useState(null);
@@ -32,16 +33,50 @@ function NewWorkoutForm() {
       });
   }, []);
 
+  async function fetchWorkoutList() {
+    try {
+      const response = await fetch("http://localhost:5000/workoutlist");
+      const data = await response.json();
+      setWorkoutItem(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function clearForm() {
+    setNewWorkoutItem({
+      workout_name: "",
+      description: "",
+      equipment: "",
+      duration: "",
+      image: "",
+      workout_id: null
+    });
+  }
+
+
   //add button functionality 
   const handleAdd = (event) => {
     event.preventDefault();
+    setShowBanner(true);
+    setMessage("Exercise created successfully.")
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 2000)
     handleAddWorkout(newWorkoutItem);
     setShowAddModal(false);
-    window.location.reload();//reloads window after adding newWorkout
+    fetchWorkoutList();
+    clearForm();
   };
 
+  const handleCloseAddModal = () => {
+    setShowBanner(false);
+    setShowAddModal(false)
+  };
+
+
+
   async function handleEdit(updatedWorkoutItem, workout_id) {
-    console.log("updating workout with ID:", workout_id);
     const { workout_name, description, equipment, image, duration } = updatedWorkoutItem;
 
     try {
@@ -59,26 +94,38 @@ function NewWorkoutForm() {
           duration
         })
       });
-
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
       console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+      setShowBanner(true);
+        setMessage("Exercise updated successfully.");
+      setTimeout(() => {
+        setShowBanner(false);
+      },2000)
+      setShowEditModal(false);
+      fetchWorkoutList();
 
-  async function handleSaveChanges(event) {
-    event.preventDefault();
-    try {
-      await handleEdit(newWorkoutItem, selectedWorkoutItem.workout_id);
+      }
+      
+
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
+  const handleCloseEditModal = () => {
+    setShowBanner(false);
+    setShowEditModal(false);
+  };
+
+
+
+
 
   //delete button functionality 
-  async function handleDelete(id, setWorkoutItem) {
+  async function handleDelete(id, setWorkoutItem, setShowBanner) {
     try {
+      setShowBanner(false)
       await fetch(`http://localhost:5000/workoutlist/delete/${id}`, {
         method: "DELETE",
       });
@@ -87,6 +134,10 @@ function NewWorkoutForm() {
         (workout) => workout.workout_id !== id
       );
       setWorkoutItem(updatedWorkoutList);
+      setMessage("Exercise deleted successfully.")
+      setShowBanner(true);
+      setTimeout(() => setShowBanner(false), 2000)
+
     } catch (error) {
       console.error(error);
     }
@@ -130,23 +181,32 @@ function NewWorkoutForm() {
                   }}>
                     Edit
                   </Button>
+
                 </td>
                 <td>
-                  <Button variant="danger" onClick={() => handleDelete(workoutItem.workout_id, setWorkoutItem)}>Delete</Button>
+                  <Button variant="danger" onClick={() => handleDelete(workoutItem.workout_id, setWorkoutItem, setShowBanner)}>
+                    Delete
+                  </Button>
+                  <div>
+                    <Alert className="alert-banner" show={showBanner} variant="success" onClose={() => setShowBanner(false)} dismissible>
+                      {message}
+                    </Alert>
+                  </div>
+
                 </td>
               </tr>
             ))}
         </tbody>
       </Table>
-      <Modal show={showEditModal} onHide={() => { setShowEditModal(false) }}>
-        <Modal.Header closeButton onClick={handleSaveChanges}>
+
+      <Modal show={showEditModal} onHide={handleCloseEditModal} >
+        <Modal.Header closeButton>
           <Modal.Title>Edit Workout</Modal.Title>
         </Modal.Header>
-
-        <EditForm handleEdit={handleEdit} selectedWorkoutItem={selectedWorkoutItem} handleSaveChanges={handleSaveChanges} />
+        <EditForm handleEdit={handleEdit} selectedWorkoutItem={selectedWorkoutItem} setShowBanner={setShowBanner} showBanner={showBanner} />
       </Modal>
 
-      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+      <Modal show={showAddModal} onHide={handleCloseAddModal}>
         <Modal.Header closeButton>
           <Modal.Title>New Workout</Modal.Title>
         </Modal.Header>
@@ -223,12 +283,17 @@ function NewWorkoutForm() {
                 }
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={handleCloseAddModal}>
               Add
             </Button>
+            <div>
+              <Alert className="alert-banner" show={showBanner} variant="success" onClose={() => setShowBanner(false)} dismissible>
+                {message}
+              </Alert>
+            </div>
           </Form>
         </Modal.Body>
-      </Modal>
+      </Modal >
     </>
   )
 }
