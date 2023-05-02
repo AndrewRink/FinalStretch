@@ -188,31 +188,31 @@ function NewWorkoutForm() {
         </Alert>
       </div>
       <Container className="new-workout-btn-container">
-        <Button variant="success" onClick={() => setShowAddModal(true)}>
-          New Workout
+        <Button className="d-none d-md-table-cell" variant="success" onClick={() => setShowAddModal(true)}>
+          New Exercise
         </Button>
       </Container>
-      <Table>
+      <Table responsive>
         <thead>
           <tr>
-            <th>Client</th>
-            <th>Workout Name</th>
+            <th className="d-none d-md-table-cell">Client</th>
+            <th>Exercise Name</th>
             <th>Description</th>
-            <th>Equipment</th>
+            <th className="d-none d-md-table-cell" >Equipment</th>
             <th>Duration</th>
             <th>Image</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th className="d-none d-md-table-cell" >Edit</th>
+            <th className="d-none d-md-table-cell" >Delete</th>
           </tr>
         </thead>
         <tbody>
           {workoutItem.length > 0 &&
             workoutItem.map((workoutItem) => (
               <tr key={workoutItem.workout_id}>
-                <td>{workoutItem.workout_id}</td>
+                <td className="d-none d-md-table-cell">{workoutItem.workout_id}</td>
                 <td>{workoutItem.workout_name}</td>
                 <td>{workoutItem.description}</td>
-                <td>{workoutItem.equipment}</td>
+                <td className="d-none d-md-table-cell">{workoutItem.equipment}</td>
                 <td>{workoutItem.duration}</td>
                 <td><img src={workoutItem.image} alt="Workout" style={{ maxWidth: "200px" }} /></td>
 
