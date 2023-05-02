@@ -17,8 +17,10 @@ function App() {
     <div className="App">
       <Router>
         <Container>
-          <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Final Stretch</Navbar.Brand>
+          <Navbar style={{backgroundColor: '#84A98C'}} expand="lg">
+          <Navbar.Brand href="/">
+            <img id='brand' src='../Final.png' />
+          </Navbar.Brand>
             <Nav className='Nav' defaultActiveKey='/'>
                 <Nav.Link href='/workoutlist'>List of Workouts</Nav.Link>
                 <Nav.Link href='/myaccount'>My Account</Nav.Link>

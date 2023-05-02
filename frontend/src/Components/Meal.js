@@ -14,10 +14,10 @@ const Meal = () => {
         <>
             <div className="main">
                 <div className="heading">
-                    <h3>Search by Meal Name</h3>
+                    <h4>Search for a list of recipes based on what you type: </h4>
                 </div>
                 <div className="searchBox">
-                    <input type="search" className="recipe-search-bar" placeholder="search for meal by name!" onChange={(e)=>setSearch(e.target.value)} value={search} onKeyPress={searchMeal}/>
+                    <input type="search" className="recipe-search-bar" placeholder="Meal Name" onChange={(e)=>setSearch(e.target.value)} value={search} onKeyPress={searchMeal}/>
                 </div>
                 <br/>
                 <div className="recipeContainer">

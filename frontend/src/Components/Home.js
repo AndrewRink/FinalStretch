@@ -1,3 +1,6 @@
+import '../App.css';
+
+
 function Home () {
     return (
     <div>  
@@ -9,8 +12,8 @@ function Home () {
             <p>Our program offers a wide range of exercises. From beginner workouts to more advanced exercise techniques, we have something to offer everyone!</p>
         </div>
         <br />
-        <div className="diclaimer">
-            <h3>DISCLAIMER</h3>
+        <div className="disclaimer">
+            <h6>DISCLAIMER</h6>
             <p>Before beginning any type of exercise program, you should first consult your physician to determine if this program is right for you, particularly anyone with underlying medical conditions,
                 including, but not limited to, high blood pressure or heart disease.  
                 If you feel chest pain, faint, or shortness of breath while exercising, please stop and contact your physician immediately. 
