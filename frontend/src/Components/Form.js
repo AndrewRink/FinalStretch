@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextInput from "./TextInput";
 import BmiButton from "./BmiButton";
+import { Card } from "react-bootstrap";
 
 const App = () => {
   const [weight, setWeight] = useState();
@@ -38,35 +39,34 @@ const App = () => {
 
   return (
     <div>
-        <div className="container">
-            <h2>BMI Calculator!</h2>
-        </div>
-        <div className="row">
-            <TextInput
-            label="Height"
-            placeholder="Enter height in inches"
-            handleChange={handleHeightChange}
-            value={height}/>
-        </div>
-        <div className="row">
-            <TextInput
-            label="Weight"
-            placeholder="Enter weight in pounds"
-            handleChange={handleWeightChange}
-            value={weight}/>
-            
-        </div>
-        <div className="row">
-            <BmiButton label="CALCULATE" onClick={computeBmi} />
-        </div>
-        <div className="row">
-            {
-            isNaN(bmi)?null:<h3>Your BMI = {bmi}</h3> 
-            }
-        </div>
-        <div className="row">
-            <h3>{bmiClass}</h3>
-        </div>
+        <Card className="bmiContainer">
+          <h2>BMI Calculator!</h2>
+          <Card.Text className="row">
+              <TextInput
+              label="Height"
+              placeholder="Enter height in inches"
+              handleChange={handleHeightChange}
+              value={height}/>
+          </Card.Text>
+          <Card.Text className="row">
+              <TextInput
+              label="Weight"
+              placeholder="Enter weight in pounds"
+              handleChange={handleWeightChange}
+              value={weight}/>
+          </Card.Text>
+          <Card.Text className="row">
+              <BmiButton label="CALCULATE" onClick={computeBmi} />
+          </Card.Text>
+          <Card.Text className="row">
+              {
+              isNaN(bmi)?null:<h3>Your BMI = {bmi}</h3> 
+              }
+          </Card.Text>
+          <Card.Text className="row">
+              <h3>{bmiClass}</h3>
+          </Card.Text>
+        </Card >
     </div>
   );
 };

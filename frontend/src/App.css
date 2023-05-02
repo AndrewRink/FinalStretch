@@ -134,13 +134,14 @@
 /* Recipe Card Styling */
 .recipeContainer {
   display: flex;
+  justify-content: space-around;
+  
 }
 
 .food-image {
   max-width: 200px;
   max-height: 200px;
   padding: 5px;
-  margin-left: 30px;
   justify-content: center;
   border-radius: 20px;
 }
@@ -148,4 +149,22 @@
 .recipeCard {
   margin-left: 25px;
   margin-bottom: 25px;
+  border-radius: 20px;
+  border: 2px solid black;
+}
+
+/* BMI Calculator */
+
+.bmiContainer {
+  display: flex;
+  background-color: #007bff;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  left: 43%;
+  width: 15%
 }
