@@ -14,21 +14,22 @@ import './App.css'
 function App() {
 
   return (
-    <div className="App">
-      <Router>
-        <Container>
-          <Navbar style={{backgroundColor: '#84A98C'}} expand="lg">
-          <Navbar.Brand href="/">
-            <img id='brand' src='../Final.png' />
-          </Navbar.Brand>
-            <Nav className='Nav' defaultActiveKey='/'>
+    
+      <div className="App">
+        <Router>
+          <Container>
+            <Navbar style={{ backgroundColor: '#84A98C' }} expand="lg">
+              <Navbar.Brand href="/">
+                <img id='brand' src='../Final.png' />
+              </Navbar.Brand>
+              <Nav className='Nav' defaultActiveKey='/'>
                 <Nav.Link href='/workoutlist'>List of Workouts</Nav.Link>
                 <Nav.Link href='/myaccount'>My Account</Nav.Link>
                 <Nav.Link href='/login'>Login</Nav.Link>
-            </Nav>
-          </Navbar>
+              </Nav>
+            </Navbar>
           </Container>
-          
+
           <div className='display'>
             <Routes>
               <Route path='/' element={<Home />} />
@@ -38,9 +39,7 @@ function App() {
             </Routes>
           </div>
         </Router>
-    </div>
-
-    
+      </div>
   );
 }
 
