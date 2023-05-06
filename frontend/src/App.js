@@ -8,6 +8,7 @@ import Home from './Components/Home';
 import LoginPage from './Components/LoginPage'
 import WorkoutList from './Components/WorkoutList'
 import MyAccount from './Components/MyAccount';
+import NewUserForm from './Components/NewUserForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
@@ -24,6 +25,7 @@ function App() {
             <Nav className='Nav' defaultActiveKey='/'>
                 <Nav.Link href='/workoutlist'>List of Workouts</Nav.Link>
                 <Nav.Link href='/myaccount'>My Account</Nav.Link>
+                <Nav.Link href='/newuser'>New User Sign-Up</Nav.Link>
                 <Nav.Link href='/login'>Login</Nav.Link>
             </Nav>
           </Navbar>
@@ -34,6 +36,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/workoutlist' element={<WorkoutList />} />
               <Route path='/myaccount' element={<MyAccount />} />
+              <Route path='/newuser' element={<NewUserForm />} />
               <Route path='/login' element={<LoginPage />} />
             </Routes>
           </div>
