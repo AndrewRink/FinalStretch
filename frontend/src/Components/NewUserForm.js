@@ -4,13 +4,14 @@ import { useState, useEffect } from "react"
 function NewUserForm() {
 
 	const [user, setUser] = useState({
-		firstName: '',
-		lastName: '',
-		email: '',
-		password: '',
+		first_name: '',
+		last_name: '',
+		email_address: '',
+		password_digest: '',
         height: '',
         current_weight: '',
-        goal_weight: ''
+        goal_weight: '',
+        role: ''
 	})
 
 	async function handleSubmit(e) {
@@ -31,22 +32,22 @@ function NewUserForm() {
 			<form onSubmit={handleSubmit}>
 				<div className="row">
 					<div className="col-sm-6 form-group">
-						<label htmlFor="firstName">First Name</label>
+						<label htmlFor="first_name">First Name</label>
 						<input
 							required
-							value={user.firstName}
-							onChange={e => setUser({ ...user, firstName: e.target.value })}
+							value={user.first_name}
+							onChange={e => setUser({ ...user, first_name: e.target.value })}
 							className="form-control"
 							id="firstName"
 							name="firstName"
 						/>
 					</div>
 					<div className="col-sm-6 form-group">
-						<label htmlFor="lastName">Last Name</label>
+						<label htmlFor="last_name">Last Name</label>
 						<input
 							required
-							value={user.lastName}
-							onChange={e => setUser({ ...user, lastName: e.target.value })}
+							value={user.last_name}
+							onChange={e => setUser({ ...user, last_name: e.target.value })}
 							className="form-control"
 							id="lastName"
 							name="lastName"
@@ -55,19 +56,19 @@ function NewUserForm() {
 				</div>
 				<div className="row">
 					<div className="col-sm-6 form-group">
-						<label htmlFor="email">Email</label>
+						<label htmlFor="email_address">Email</label>
 						<input
 							type="email"
 							required
-							value={user.email}
-							onChange={e => setUser({ ...user, email: e.target.value })}
+							value={user.email_address}
+							onChange={e => setUser({ ...user, email_address: e.target.value })}
 							className="form-control"
 							id="email"
 							name="email"
 						/>
 					</div>
 				<div className="col-sm-6 form-group">
-					<label htmlFor="password">Password</label>
+					<label htmlFor="password_digest">Password</label>
 					<input
 						type="password"
 						required
@@ -93,7 +94,7 @@ function NewUserForm() {
 						/>
 					</div>
 				<div className="col-sm-6 form-group">
-					<label htmlFor="current_weight">Current_Weight</label>
+					<label htmlFor="current_weight">Current Weight</label>
 					<input
 						type="current_weight"
 						required
@@ -107,12 +108,12 @@ function NewUserForm() {
 				</div>
                 <div>
                 <div className="col-sm-6 form-group">
-					<label htmlFor="goal_weight">Current_Weight</label>
+					<label htmlFor="goal_weight">Goal Weight</label>
 					<input
 						type="goal_weight"
 						required
-						value={user.current_weight}
-						onChange={e => setUser({ ...user, current_weight: e.target.value}) }
+						value={user.goal_weight}
+						onChange={e => setUser({ ...user, goal_weight: e.target.value}) }
 						className="form-conrol"
 						id='goal_weight'
 						name='goal_weight'
