@@ -1,13 +1,13 @@
-const userInfo = require('express').Router()
+const user = require('express').Router()
 const db = require('../models')
-const { UserInfos } = db
+const { Users } = db
 const { Op } = require('sequelize')
 
 
 // GET all workouts
-userInfo.get('/', async (req, res) => {
+user.get('/', async (req, res) => {
     try {
-      const foundItems = await db.userInfo.findAll({
+      const foundItems = await db.user.findAll({
         where: {
           first_name: { [Op.like]: `%${req.query.name ? req.query.name : ''}%` }
         },
@@ -21,25 +21,26 @@ userInfo.get('/', async (req, res) => {
   
 
 //find workout by id
-userInfo.get('/:id', async (req,res) => {
-    try{
-        const foundItem = await UserInfos.findOne({
-            where: {id: req.params.id}
-        })
-        res.status(200).json(foundItem)
-    }catch(err) {
-        res.status(500).json(err)
-    }
+user.get('/:id', async (req, res) => {
+  try {
+    const foundItem = await db.user.findOne({
+      where: { id: req.params.id }
+    })
+    res.status(200).json(foundItem)
+  } catch (err) {
+    res.status(500).json(err)
+  }
 })
 
 //create new workout
-userInfo.post('/', async (req, res) => {
+user.post('/', async (req, res) => {
     try {
-      const { first_name, last_name, email_address, height, current_weight, goal_weight } = req.body;
-      const newUserItem = await db.userInfo.create({
+      const { first_name, last_name, email_address, password, height, current_weight, goal_weight } = req.body;
+      const newUserItem = await db.user.create({
         first_name,
         last_name,
         email_address,
+        password,
         height,
         current_weight,
         goal_weight,
@@ -86,4 +87,4 @@ userInfo.post('/', async (req, res) => {
 //     res.status(500).json(err);
 //   }
 // });
-module.exports = userInfo
+module.exports = user

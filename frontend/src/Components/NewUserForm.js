@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react"
-// import { useHistory, useParams } from "react-router-dom"
+ import { useNavigate, useParams } from "react-router-dom"
 
 function NewUserForm() {
-
-	// const history = useHistory()
 
 	const [user, setUser] = useState({
 		firstName: '',
@@ -18,15 +16,13 @@ function NewUserForm() {
 	async function handleSubmit(e) {
 		e.preventDefault()
 
-		await fetch(`http://localhost:5000/users/`, {
+		await fetch(`http://localhost:5000/userlist/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(user)
 		})
-
-		// history.push(`/`)
 	}
 
 	return (
