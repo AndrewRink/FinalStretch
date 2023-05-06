@@ -5,10 +5,10 @@ import Container from 'react-bootstrap/Container'
 
 //Components
 import Home from './Components/Home';
-import LoginPage from './Components/LoginPage'
 import WorkoutList from './Components/WorkoutList'
 import MyAccount from './Components/MyAccount';
 import NewUserForm from './Components/NewUserForm';
+import NewLoginForm from './Components/NewLoginForm'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
@@ -21,7 +21,7 @@ function App() {
           <Navbar style={{backgroundColor: '#84A98C'}} expand="lg">
           <Navbar.Brand href="/">
             <img id='brand' src='../Final.png' />
-          </Navbar.Brand>
+          </Navbar.Brand>   
             <Nav className='Nav' defaultActiveKey='/'>
                 <Nav.Link href='/workoutlist'>List of Workouts</Nav.Link>
                 <Nav.Link href='/myaccount'>My Account</Nav.Link>
@@ -30,14 +30,15 @@ function App() {
             </Nav>
           </Navbar>
           </Container>
-          
+         
           <div className='display'>
-            <Routes>
+            <Routes>              
               <Route path='/' element={<Home />} />
               <Route path='/workoutlist' element={<WorkoutList />} />
               <Route path='/myaccount' element={<MyAccount />} />
               <Route path='/newuser' element={<NewUserForm />} />
-              <Route path='/login' element={<LoginPage />} />
+              <Route path='/login' component={NewLoginForm} />
+             
             </Routes>
           </div>
         </Router>

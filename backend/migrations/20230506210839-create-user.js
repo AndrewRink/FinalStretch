@@ -10,16 +10,31 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       first_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'Please enter your first name'
+          }
+        }
       },
       last_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate:{
+          notNull:{
+            msg: 'Please enter your last name'
+          }
+        }
       },
       email_address: {
-        type: Sequelize.STRING
-      },
-      password_digest: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate:{
+          notNull:{
+            msg: 'Please enter your email address'
+          }
+        }
       },
       height: {
         type: Sequelize.INTEGER

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import TextInput from "./TextInput";
-import BmiButton from "./BmiButton";
 import { Card } from "react-bootstrap";
 
 
