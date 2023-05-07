@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useNavigation } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
@@ -9,6 +9,9 @@ import WorkoutList from './Components/WorkoutList'
 import MyAccount from './Components/MyAccount';
 import NewUserForm from './Components/NewUserForm';
 import NewLoginForm from './Components/NewLoginForm'
+import CurrentUserProvider from './context/CurrentUser';
+import Navigation from './Components/Navigation'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
@@ -16,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      <CurrentUserProvider>
       <Router>
         <Container>
           <Navbar style={{backgroundColor: '#84A98C'}} expand="lg">
@@ -33,15 +37,16 @@ function App() {
          
           <div className='display'>
             <Routes>              
-              <Route path='/' element={<Home />}/>
-              <Route path='/workoutlist' element={<WorkoutList />} />
-              <Route path='/myaccount' element={<MyAccount />} />
-              <Route path='/newuser' element={<NewUserForm />} />
-              <Route path='/login' element={<NewLoginForm />} />
+              <Route exact path='/' element={<Home />}/>
+              <Route exact path='/workoutlist' element={<WorkoutList />} />
+              <Route exact path='/myaccount' element={<MyAccount />} />
+              <Route exact path='/newuser' element={<NewUserForm />} />
+              <Route exact path='/login' element={<NewLoginForm />} />
              
             </Routes>
           </div>
         </Router>
+        </CurrentUserProvider>
     </div>
 
     

@@ -7,7 +7,7 @@ async function defineCurrentUser(req, res, next){
     try {
         let user = await db.user.findOne({
             where: {
-                user_id: req.session.user_id
+                user_id: req.session.userId
             }
         })
         const [ method, token ] = req.headers.authorization.split(' ')
