@@ -54,7 +54,7 @@ async function handleSubmit(e) {
                         <input
                             type="email"
                             required
-                            value={credentials.email}
+                            value={credentials.email_address}
                             onChange={e => setCredentials({ ...credentials, email_address: e.target.value })}
                             className="form-control"
                             id="email"
@@ -66,7 +66,7 @@ async function handleSubmit(e) {
                         <input
                             type="password"
                             required
-                            value={credentials.password}
+                            value={credentials.password_digest}
                             onChange={e => setCredentials({ ...credentials, password_digest: e.target.value })}
                             className="form-control"
                             id="password"

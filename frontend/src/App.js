@@ -37,7 +37,7 @@ function App() {
               <Route path='/workoutlist' element={<WorkoutList />} />
               <Route path='/myaccount' element={<MyAccount />} />
               <Route path='/newuser' element={<NewUserForm />} />
-              <Route path='/login' component={NewLoginForm} />
+              <Route path='/login' element={<NewLoginForm />} />
              
             </Routes>
           </div>
