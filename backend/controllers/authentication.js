@@ -16,6 +16,7 @@ user.post('/', async (req, res) => {
         })
     } else {
         const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET)
+        req.session.token = token;
         res.json({ 
             token: token,
             user: {
@@ -29,6 +30,20 @@ user.post('/', async (req, res) => {
             }
          })
     }
+
+    user.get('/profile', async (req, res) => {
+        console.log(req.session.user_id)
+        try {
+            let user = await User.findOne({
+                where: {
+                    user_id: req.session.user_id
+                }
+            })
+            res.json(user)
+        } catch {
+            res.json(null)
+        }
+    })
 })
 
 module.exports = user;
