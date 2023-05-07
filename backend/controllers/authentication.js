@@ -1,6 +1,7 @@
 const user = require('express').Router()
 const db = require("../models")
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const { User } = db
 
 user.post('/', async (req, res) => {
@@ -14,7 +15,19 @@ user.post('/', async (req, res) => {
             message: `Could not find a user with the provided email address and password` 
         })
     } else {
-        res.json({ user })
+        const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET)
+        res.json({ 
+            token: token,
+            user: {
+                id: user.id,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                email_address: user.email_address,
+                height: user.height,
+                current_weight: user.current_weight,
+                goal_weight: user.goal_weight
+            }
+         })
     }
 })
 

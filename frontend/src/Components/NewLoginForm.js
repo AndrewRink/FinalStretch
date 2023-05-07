@@ -5,32 +5,34 @@ const NewLoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [userName, setUserName] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const credentials = {
-            email_address: email,
-            password: password
+          email_address: email,
+          password: password
         };
         const response = await fetch(`http://localhost:5000/authentication`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
         });
-
+      
         const data = await response.json();
-
+      
         if (response.status === 200) {
             console.log(data.token);
             localStorage.setItem('token', data.token);
-            navigate(`/`);
-        } else {
+            setUserName(data.user.first_name);
+            navigate(`/`, { state: { userName: data.user.first_name } });
+          } else {
             setErrorMessage(data.message);
-        }
-    };
+          }
+      };
 
     return (
         <div>
@@ -46,6 +48,7 @@ const NewLoginForm = () => {
                 <button type="submit">Log In</button>
             </form>
             {errorMessage && <div>{errorMessage}</div>}
+            {userName && <div>Welcome, {userName}!</div>}
         </div>
     );
 };

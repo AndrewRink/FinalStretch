@@ -1,11 +1,11 @@
 import '../App.css';
+import React from 'react'
 
-
-function Home () {
+function Home (props) {
     return (
     <div>  
         <div className="homeBody">
-            <h1>Welcome to The Final Stretch</h1>
+            <h1>Welcome to The Final Stretch, {props.userName}</h1>
             <img id="homeLogo" src= 'https://www.usnews.com/cmsmedia/13/7c/a9774d7f410785fa055cf06a6ffd/140707-seniorsexercise-stock.jpg'  alt="logo"/>
             <h2>Embrace a healthier lifestyle! Unlock the best you!</h2>
             <p>Thank you for choosing us to accompany you on your health and wellness journey!</p>
