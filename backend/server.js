@@ -1,6 +1,5 @@
 //Dependencies
 require('dotenv').config();
-require('./auth');
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -12,9 +11,13 @@ const app = express();
 
 
 //configuration 
+app.use(session({
+    secret: 'flexibleoldpeople',
+    resave: false,
+    savUnitialized: true
+}));
 app.use(cors());
 app.use(express.json());
-app.use(session({name: 'session', sameSite:'strict', secret: process.env.SESSION_SECRET, maxAge: 24 * 60 * 60 * 1000 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
