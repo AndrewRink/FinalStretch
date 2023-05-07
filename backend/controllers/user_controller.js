@@ -25,7 +25,6 @@ user.get('/', async (req, res) => {
 user.get('/:id', async (req, res) => {
   try {
     const foundItems = await db.user.findOne({
-      attributes: ['first_name', 'last_name', 'email_address', 'height', 'current_weight', 'goal_weight', 'role', 'createdAt', 'updatedAt', 'password_digest'],
       where: { user_id: req.params.id }
       
     })
