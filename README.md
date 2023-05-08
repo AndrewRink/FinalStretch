@@ -23,5 +23,8 @@ TECHNOLOGIES USED:
 We used postgreSQL as our database, with Sequelize and Express to tie it together on the backend.  We used React to create the frontend of the app, along with React-Bootstrap to style.  
 
 KNOWN ISSUES/MISSING FEATURES
-1. After logging in, user does not 
+1. After logging in, user does not remain logged in after navigating off of the home page.  This results in data not being reflected on the My Account Page.  
+2. Currently, the backend database is not deployed. The information from the workout table will not display on the deployed website. It does work on the local machine. 
+### See backend README.  
+
 
