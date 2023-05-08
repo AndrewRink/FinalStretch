@@ -51,12 +51,12 @@ function App() {
          
           <div className='display'>
             <Routes>              
-              <Route exact path='/' element={<NewLoginForm />}/>
-              <Route exact path='/home' element={<Home />}/>
-              <Route exact path='/workoutlist' element={<WorkoutList />} />
-              <Route exact path='/myaccount' element={<MyAccount />} />
-              <Route exact path='/newuser' element={<NewUserForm />} />
-              <Route exact path='/Login' element={<NewLoginForm />} />
+              <Route  path='/' element={<NewLoginForm />}/>
+              <Route  path='/home' element={<Home />}/>
+              <Route  path='/workoutlist' element={<WorkoutList />} />
+              <Route  path='/myaccount' element={<MyAccount />} />
+              <Route  path='/newuser' element={<NewUserForm />} />
+              <Route  path='/Login' element={<NewLoginForm />} />
              
             </Routes>
           </div>
