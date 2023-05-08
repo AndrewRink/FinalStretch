@@ -21,41 +21,18 @@ module.exports = {
       last_name: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate:{
-          notNull:{
-            msg: 'Please enter your last name'
-          }
-        }
       },
-      email_address: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate:{
-          notNull:{
-            msg: 'Please enter your email address'
-          }
-        }
       },
-      height: {
-        type: Sequelize.INTEGER
-      },
-      current_weight: {
-        type: Sequelize.INTEGER
-      },
-      goal_weight: {
-        type: Sequelize.INTEGER
+      password: {
+          type: Sequelize.STRING,
+          allowNull: false,
       },
       role: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
     });
   },
   async down(queryInterface, Sequelize) {

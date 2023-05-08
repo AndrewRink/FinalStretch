@@ -1,56 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
-const NewLoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [userName, setUserName] = useState('');
-    const navigate = useNavigate();
+function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { updateEmail, updatePassword } = useContext(UserContext);
+  const [error, setError] = useState(null);
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch('http://localhost:5000/authtest/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    console.log(data)
+    if (response.ok) {
+      // Save email and password to context and redirect to home page if login successful
+      updateEmail(email);
+      updatePassword(password);
+      navigate('/myAccount');
+    } else {
+      setError(data.error);
+    }
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const credentials = {
-          email_address: email,
-          password: password
-        };
-        const response = await fetch(`http://localhost:5000/authentication`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(credentials)
-        });
-      
-        const data = await response.json();
-      
-        if (response.status === 200) {
-            console.log(data.token);
-            localStorage.setItem('token', data.token);
-            setUserName(data.user.first_name);
-            navigate(`/`, { state: { userName: data.user.first_name } });
-          } else {
-            setErrorMessage(data.message);
-          }
-      };
-
-    return (
+  return (
+    <div>
+      <h2>Login</h2>
+      {error && <p>{error}</p>}
+      <form onSubmit={handleSubmit}>
         <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <button type="submit">Log In</button>
-            </form>
-            {errorMessage && <div>{errorMessage}</div>}
-            {userName && <div>Welcome, {userName}!</div>}
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
-    );
-};
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
 
-export default NewLoginForm;
+export default LoginPage;

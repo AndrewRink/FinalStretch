@@ -5,36 +5,29 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const { Sequelize } = require('sequelize');
 const cors = require('cors');
-const passport = require('passport');
+const cookieParser = require('cookie-parser');
+
+
+
 const app = express();
-const defineCurrentUser = require('./middleware/defineCurrentUser')
+
 
 
 
 //configuration 
-app.use(session({
-    secret: 'flexibleoldpeople',
-    resave: false,
-    savUnitialized: true
-}));
-app.use(cors({
-    origin:true,
-    credentials: true
-}));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
-
-
+app.use(cors());
 
 //controllers
 const workoutController = require('./controllers/workout_controller');
-const userController = require('./controllers/user_controller');
-app.use('/authentication', require('./controllers/authentication'));
+const authtestController = require('./controllers/authtest_controller')
 app.use('/workoutlist', workoutController);
-app.use('/userlist', userController);
+app.use('/authtest', authtestController);
 
 
 //PORT
