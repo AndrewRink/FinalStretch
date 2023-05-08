@@ -1,6 +1,6 @@
 const workout = require('express').Router()
 const db = require('../models')
-const { Workouts } = db
+
 const { Op } = require('sequelize')
 
 
