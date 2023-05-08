@@ -40,3 +40,18 @@ sequelize db:migrate
 In the terminal: 
 sequelize migrations:generate --name 
 
+### DEPENDENCIES
+1. bcrypt
+2. body-parser
+3. connect-session-sequelize
+4. cookie-parser
+5. cookie-session
+6. cors
+7. dotenv
+8. express
+9. express-session
+10. json-web-token
+11. pg
+12. sequelize
+
+
