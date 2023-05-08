@@ -132,7 +132,7 @@ function NewWorkoutForm() {
       });
       if (response.ok) {
         const data = await response.json();
-      //console.log(data);
+      console.log(data);
       setShowBanner(true);
         setMessage("Exercise updated successfully.");
       setTimeout(() => {

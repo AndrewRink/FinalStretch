@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Modal, Form, Alert } from 'react-bootstrap'
+import { Button, Modal, Form } from 'react-bootstrap'
 import "../App.css";
 
 function EditForm({ handleEdit, handleClose, selectedWorkoutItem, showBanner, setShowBanner, setWorkoutItem }) {
@@ -8,7 +8,7 @@ function EditForm({ handleEdit, handleClose, selectedWorkoutItem, showBanner, se
   const [equipment, setEquipment] = useState(selectedWorkoutItem.equipment);
   const [duration, setDuration] = useState(selectedWorkoutItem.duration);
   const [image, setImage] = useState(selectedWorkoutItem.image);
-  const [ showEditModal, setShowEditModal ] = useState(false);
+  const [ setShowEditModal ] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
